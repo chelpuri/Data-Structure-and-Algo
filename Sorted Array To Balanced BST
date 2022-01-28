@@ -1,0 +1,38 @@
+/**
+ * Definition for binary tree
+ * class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) {
+ *      val = x;
+ *      left=null;
+ *      right=null;
+ *     }
+ * }
+ */
+public class Solution {
+    // DO NOT MODIFY THE ARGUMENTS WITH "final" PREFIX. IT IS READ ONLY
+    public TreeNode sortedArrayToBST(final int[] A) {
+        
+        return build(A,0,A.length-1);
+    }
+    
+    private TreeNode build(int[] A,int l,int r)
+    {
+        if(l>r)
+        {
+            return null;
+        }
+         
+        if(l==r)
+        {
+            return new TreeNode(A[l]);
+        }
+        
+        TreeNode node=new TreeNode(A[(l+r)/2]);
+        node.left=build(A,l,(l+r)/2-1);
+        node.right=build(A,(l+r)/2+1,r);
+        return node;
+    }
+}
