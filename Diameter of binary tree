@@ -1,0 +1,29 @@
+/**
+ * Definition for binary tree
+ * class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) {
+ *      val = x;
+ *      left=null;
+ *      right=null;
+ *     }
+ * }
+ */
+public class Solution {
+   public int diameter=0;
+    public int solve(TreeNode A) {
+        find(A);
+        return diameter;
+    }
+    public int find(TreeNode node)
+    {
+        if(node==null)
+         return -1;
+        int l=find(node.left);
+        int r=find(node.right);
+        diameter=Math.max(diameter,l+r+2);
+        return 1+Math.max(l,r);
+    }
+}
