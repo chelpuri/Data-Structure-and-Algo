@@ -1,0 +1,65 @@
+public class Solution {
+    static final int ALPHABET_SIZE=26;
+    class TrieNode{
+        TrieNode children[]=new TrieNode[ALPHABET_SIZE];
+        boolean isEnd;
+        TrieNode(){
+            isEnd=false;
+            for(int i=0;i<ALPHABET_SIZE;i++)
+            {
+                children[i]=null;
+            }
+
+        }
+    }
+    static TrieNode root;
+    public int[] solve(String[] A, String[] B) {
+     int ans[]=new int[B.length];
+     root=new TrieNode();
+        for(String i:A)
+        {
+            insert(i);
+        }
+        int x=0;
+        for(String p:B)
+        {
+            if(Search(p))
+             ans[x++]=1;
+            else
+              ans[x++]=0;
+        }
+        return ans;
+    }
+    public void insert(String s)
+    {
+        int index;
+        int level;
+
+        TrieNode temp=root;
+        for(level=0;level<s.length();level++)
+        {
+            index=s.charAt(level)-'a';
+            if(temp.children[index]==null)
+              temp.children[index]=new TrieNode();
+            
+           temp=temp.children[index];
+        }
+        temp.isEnd=true;
+    }
+    public boolean Search(String x)
+    {
+        int i;
+        TrieNode temp=root;
+        for(int j=0;j<x.length();j++)
+        {
+            i=x.charAt(j)-'a';
+            if(temp.children[i]==null)
+                return false;
+        
+          temp=temp.children[i];
+        }
+        return temp.isEnd;
+    }
+
+    
+}
