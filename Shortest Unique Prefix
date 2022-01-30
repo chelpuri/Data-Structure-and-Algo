@@ -1,0 +1,65 @@
+public class Solution {
+    static final int ALPHABET_SIZE=26;
+    class TrieNode{
+        TrieNode[] children=new TrieNode[ALPHABET_SIZE];
+        int freq;
+        TrieNode(){
+            freq=0;
+            for(int i=0;i<ALPHABET_SIZE;i++)
+            {
+                children[i]=null;
+            }
+        }
+    }
+    static TrieNode root;
+    public String[] prefix(String[] A) {
+        String[] ans=new String[A.length];
+        root=new TrieNode();
+        for(String i:A)
+        {
+            insert(i);
+        }
+        int i=0;
+        for(String s:A)
+        {
+            ans[i++]=prefix(s);
+        }
+        return ans;
+
+    }
+    public void insert(String s)
+    {
+        int index;
+        
+        TrieNode temp=root;
+        for(int j=0;j<s.length();j++)
+        {
+            index=s.charAt(j)-'a';
+            if(temp.children[index]==null)
+              temp.children[index]=new TrieNode();
+        
+           temp=temp.children[index];
+           temp.freq=temp.freq+1;
+        }
+        temp.freq=1;
+    }
+    public String prefix(String x)
+    {
+        int idx;
+        String ans="";
+        TrieNode temp=root;
+        for(int i=0;i<x.length();i++)
+        {
+            idx=x.charAt(i)-'a';
+            if(temp.children[idx].freq==1){
+               ans+=x.charAt(i);
+               break;
+            }
+            if(temp.children[idx].freq>1)
+              ans+=x.charAt(i);
+            
+            temp=temp.children[idx];
+        }
+        return ans;
+    } 
+}
