@@ -1,0 +1,74 @@
+public class Solution {
+    int stree[];
+    public int[] solve(int A, int[][] B) {
+       stree=new int[4*A];
+       ArrayList<Integer> ans=new ArrayList<Integer>();
+       Arrays.fill(stree,0);
+       for(int i=0;i<B.length;i++)
+       {
+           int x=B[i][0];
+           int y=B[i][1];
+           int z=B[i][2];
+           if(x==1)
+           {
+               update(0,0,A-1,y-1,1);
+           }
+           if(x==2)
+           {
+               update(0,0,A-1,y-1,2);
+           }
+           if(x==3)
+           {
+               ans.add(search(0,0,A-1,y-1,z-1));
+           }
+       }
+       int i=0;
+       int res[]=new int[ans.size()];
+       for(int j:ans)
+       {
+           res[i++]=j;
+       } 
+       return res;
+    }
+    public void update(int idx,int st,int end,int i,int x)
+    {
+        if(st==end)
+        {
+         if(x==1)
+            stree[idx]=stree[idx]+1;
+          else{
+            stree[idx]=stree[idx]-1; 
+            if(stree[idx]<0)
+             stree[idx]=0;
+          }
+        }
+        else
+        {
+            int mid=(st+end)/2;
+            int lc=2*idx+1;
+            int rc=lc+1;
+            if(i>=st && i<=mid){
+             update(lc,st,mid,i,x);
+            }
+            else{
+             update(rc,mid+1,end,i,x);
+            }
+            stree[idx]=stree[lc]+stree[rc];
+        }
+    }
+    public int search(int idx,int st,int end,int l,int r)
+    {
+        if(r<st || l>end)
+        {
+            return 0;
+        }
+        if(l<=st && r>=end)
+        {
+             return stree[idx];
+        }
+        int mid=(st+end)/2;
+        int lc=2*idx+1;
+        int rc=lc+1;
+        return search(lc,st,mid,l,r)+search(rc,mid+1,end,l,r);
+    }
+}
