@@ -1,0 +1,93 @@
+public class Solution {
+    int stree[];
+    public int[] solve(int A, int[][] B) {
+        stree=new int[4*A];
+        int arr[]=new int[A];
+        Arrays.fill(arr,1);
+        ArrayList<Integer> ans=new ArrayList<Integer>();
+        build(0,0,A-1);
+        int no=A;
+        for(int i=0;i<B.length;i++)
+        {
+            int x=B[i][0];
+            int y=B[i][1];
+            if(x==0 )
+            {
+                if(arr[y-1]==1){
+                no--;
+                arr[y-1]=0;
+                update(0,0,A-1,y-1,arr);
+                }
+            }
+            else{
+                if(y>no)
+                  ans.add(-1);
+                else
+                 ans.add(search(0,0,A-1,y)+1);
+            }
+        }
+        int res[]=new int[ans.size()];
+        int i=0;
+        for(int j:ans)
+        {
+            res[i++]=j;
+        }
+        return res;
+        
+    }
+    public void build(int idx,int st,int end)
+    {
+        if(st==end)
+        {
+            stree[idx]=1;
+        }
+        else
+        {
+            int mid=(st+end)/2;
+            int lc=2*idx+1;
+            int rc=lc+1;
+            build(lc,st,mid);
+            build(rc,mid+1,end);
+            stree[idx]=stree[lc]+stree[rc];
+        }
+    }
+     public void update(int idx,int st,int end,int i,int[] arr)
+    {
+        if(st==end)
+        {
+         arr[st]=0;
+         stree[idx]=0;
+        }
+        else
+        {
+            int mid=(st+end)/2;
+            int lc=2*idx+1;
+            int rc=lc+1;
+            if(i>=st && i<=mid){
+             update(lc,st,mid,i,arr);
+            }
+            else{
+             update(rc,mid+1,end,i,arr);
+            }
+            stree[idx]=stree[lc]+stree[rc];
+        }
+    }
+    public int search(int idx,int st,int end,int y)
+    {
+        if(st==end)
+           return st;
+        int mid=(st+end)/2;
+        int lc=2*idx+1;
+        int rc=lc+1;
+        int l=stree[lc];
+        if(l>=y)
+        {
+               return search(lc,st,mid,y);
+        }
+        else
+        {
+               return search(rc,mid+1,end,y-l);
+    }
+            
+  }
+}
