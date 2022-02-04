@@ -1,0 +1,22 @@
+public class Solution {
+    public int solve(ArrayList<Integer> A, int B) {
+        int count=0,sum=0;
+        int n=A.size();
+        for(int i=0;i<B;i++)
+        {
+            sum+=A.get(i);
+        }
+        int min=sum;
+        for(int i=B;i<n;i++)
+        {
+            sum+=A.get(i)-A.get(i-B);
+            
+            if(sum<min)
+            {
+                min=sum;
+                count=i-B+1;
+            }
+        }
+        return count;
+    }
+}
