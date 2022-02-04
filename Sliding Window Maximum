@@ -1,0 +1,45 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+    public ArrayList<Integer> slidingMaximum(final List<Integer> A, int B) {
+        int n=A.size();
+        ArrayList<Integer> ans=new ArrayList<Integer>();
+        Deque<node> d=new LinkedList<>();
+        int i;
+        for(i=0;i<B-1;i++)
+        {
+            int x=A.get(i);
+            while(!d.isEmpty() && d.peekFirst().val<=x){
+              d.pollFirst();
+            }
+            d.addFirst(new node(i,x));
+        }
+        for(;i<n;i++)
+        {
+            int temp=A.get(i);
+            while(!d.isEmpty() && (i-d.peekLast().idx>=B))
+            {
+                d.pollLast();
+            }
+            while(!d.isEmpty() && d.peekFirst().val <=temp )
+            {
+                d.pollFirst();
+            }
+            d.addFirst(new node(i,temp));
+            ans.add(d.peekLast().val);
+
+        }
+        return ans;
+        
+    }
+    class node
+    {
+        int idx;
+        int val;
+        public node(int idx,int val)
+        {
+            this.val=val;
+            this.idx=idx;
+        }
+    }
+
+}
