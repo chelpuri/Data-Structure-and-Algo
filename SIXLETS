@@ -1,0 +1,14 @@
+public class Solution {
+    public int solve(int[] A, int B) {
+        int ans=sixlets(A,B,0,0,0);
+        return ans;
+    }
+    public int sixlets(int[] A,int B,int sum,int cnt,int i)
+    {
+        if(sum>1000) return 0;
+        if(cnt==B) return 1;
+        if(i==A.length) return 0;
+        
+        return sixlets(A,B,sum+A[i],cnt+1,i+1)+sixlets(A,B,sum,cnt,i+1);
+    }
+}
