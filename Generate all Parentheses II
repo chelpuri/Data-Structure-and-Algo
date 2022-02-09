@@ -1,0 +1,20 @@
+public class Solution {
+    ArrayList<String> ans;
+    public ArrayList<String> generateParenthesis(int A) {
+        ans=new ArrayList<>();
+        solve(A,0,2*A,"");
+        return ans;
+    }
+    void solve(int count ,int diff,int n,String s)
+    {
+        if(n==0)
+        {
+            ans.add(s);
+            return ;
+        }
+        if(count > 0)
+          solve(count-1,diff+1,n-1,s+'(');
+        if(diff > 0)
+          solve(count,diff-1,n-1,s+')');
+    }
+}
