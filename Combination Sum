@@ -1,0 +1,40 @@
+public class Solution {
+    ArrayList<ArrayList<Integer>> ans; 
+    ArrayList<Integer> temp;
+    public ArrayList<ArrayList<Integer>> combinationSum(ArrayList<Integer> A, int B) {
+        ans=new ArrayList<>();
+        temp=new ArrayList<>();
+        Collections.sort(A);
+        ArrayList<Integer> list=new ArrayList<>();
+        for(int i=0;i<A.size();i++)
+        {
+            int temp=A.get(i);
+            if(i==0 || temp!=A.get(i-1))
+            {
+                list.add(temp);
+            }
+        }
+        combsum(list,0,temp,B,0);
+        return ans;
+    }
+    public void combsum(ArrayList<Integer> A,int idx,ArrayList<Integer> temp,int B,int sum)
+    {
+        if(sum>B)
+        {
+            return;
+        }
+        if(sum==B)
+        {
+            ans.add(new ArrayList<> (temp));
+            return;
+        }
+        for(int i=idx;i<A.size();i++)
+        {
+            sum+=A.get(i);
+            temp.add(A.get(i));
+            combsum(A,i,temp,B,sum);
+            temp.remove(temp.size()-1);
+            sum-=A.get(i);
+        }
+    }
+}
