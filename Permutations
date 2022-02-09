@@ -1,0 +1,30 @@
+public class Solution {
+    ArrayList<ArrayList<Integer>> ans;
+    public ArrayList<ArrayList<Integer>> permute(ArrayList<Integer> A) {
+        ans=new ArrayList<>();
+        ArrayList<Integer> temp=new ArrayList<Integer>();
+      int visited[]=new int[A.size()];
+      Arrays.fill(visited,0);
+      generate(A,visited,0,temp);
+      return ans;
+    }
+    public void generate(ArrayList<Integer> A,int[] vis,int idx,ArrayList<Integer> temp)
+    {
+        if(idx==A.size())
+        {
+            ans.add(new ArrayList<> (temp));
+            return;
+        }
+        for(int i=0;i<A.size();i++)
+        {
+            if(vis[i]==0)
+            {
+                vis[i]=1;
+                temp.add(A.get(i));
+                generate(A,vis,idx+1,temp);
+                temp.remove(temp.size()-1);
+                vis[i]=0;
+            }
+        }
+    }
+}
