@@ -1,0 +1,51 @@
+public class Solution {
+    int mod=1000000000+7;
+    public int solve(int[] A) {
+        
+        int n=A.length;
+        int count=mergesort_and_count(A,0,n-1);
+        return (int) count % mod;
+    }
+    public int merge(int a[], int start, int mid, int end) {
+        int n1 = (mid - start + 1);
+        int n2 = (end - mid);
+        int[] L = new int[n1], R = new int[n2];
+        for (int i = 0; i < n1; i++)
+            L[i] = a[start + i];
+        for (int j = 0; j < n2; j++)
+            R[j] = a[mid + 1 + j];
+        int i,j,ans=0;
+        int k=start;
+        for (i=0,j=0; k <=end; k++) {
+            if(i>=n1)
+             {
+                 a[k]=R[j++];
+             }
+            else if(j>=n2)
+             {
+                 a[k]=L[i++];
+                 ans+=j;
+             }
+            else if(L[i]<=R[j])
+            {
+                a[k]=L[i++];
+                ans+=j;
+            }
+            else
+            {
+                a[k]=R[j++];
+            }
+        }
+        return (int) ans % mod;
+    }
+    public int mergesort_and_count(int a[], int start, int end) {
+        if(start==end) return 0;
+            int mid = (start + end) / 2;
+            int count = 0;
+            count +=mergesort_and_count(a, start, mid);
+            count += mergesort_and_count(a, mid + 1, end);
+            count +=merge(a, start, mid, end);
+            return (int) count % mod;
+    }
+
+}
