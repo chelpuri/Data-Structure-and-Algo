@@ -1,0 +1,30 @@
+public class Solution {
+    public int solve(int[] A) {
+        int n=A.length;
+        int l=0;
+        if(n==1)
+         return A[0];
+        int h=A.length-1;
+        if(A[1]<A[0])
+         return A[0];
+        if(A[n-1]>A[n-2])
+         return A[n-1];
+        while(l<=h)
+        {
+            int mid=(l+h)/2;
+            if(A[mid]>=A[mid+1] && A[mid]>=A[mid-1])
+            {
+                return A[mid];
+            }
+            else if(A[mid]<=A[mid+1])
+            {
+                l=mid+1;
+            }
+            else
+            {
+                h=mid-1;
+            }
+        }
+        return -1;
+    }
+}
