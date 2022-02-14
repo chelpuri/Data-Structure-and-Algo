@@ -1,0 +1,21 @@
+public class Solution {
+    public int solve(int[] A) {
+        Arrays.sort(A);
+        int ans=-1;
+        int count=1;
+       for(int i=1;i<A.length;i++)
+       {
+           if(A[i]==A[i-1])
+           {
+               count++;
+           }
+           else
+           {
+               ans=Math.max(ans,count);
+               count=1;
+           }
+       }
+        //ans=Math.max(ans,count);
+        return ans;
+    }
+}
