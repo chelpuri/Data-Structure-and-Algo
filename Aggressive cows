@@ -1,0 +1,47 @@
+public class Solution {
+    public int solve(int[] A, int B) {
+        int min=Integer.MAX_VALUE;
+        Arrays.sort(A);
+        int n=A.length;
+        for(int i=1;i<A.length;i++)
+        {
+            min=Math.min(A[i]-A[i-1],min);
+        }
+        int max=A[n-1]-A[0];
+        max/=(B-1);
+        int ans=1;
+        while(min<=max)
+        {
+            int mid=(max+min)/2;
+            if(check(A,B,mid)==1)
+            {
+                ans=mid;
+                min=mid+1;
+            }
+            else
+            {
+                 max=mid-1;
+            }
+        }
+        return ans;
+
+    }
+    public int check(int[] A,int B,int mid)
+    {
+        int n=A.length;
+        int j=0;
+        B--;
+        for(int i=0;i<n;i++)
+        {
+            if(A[i]>=mid+A[j])
+            {
+                j=i;
+                B--;
+            }
+        }
+        if(B>0)
+         return 0;
+        else  
+          return 1;
+    }
+}
