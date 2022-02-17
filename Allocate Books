@@ -1,0 +1,38 @@
+public class Solution {
+    public int books(int[] A, int B) {
+        int n=A.length;
+        int l=Integer.MIN_VALUE;
+        int h=0;
+        if(B>n)
+        {
+            return -1;
+        }
+        for(int i=0;i<n;i++)
+        {
+            h+=A[i];
+            l=Math.max(l,A[i]);
+        }
+        while(l<=h)
+        {
+            int mid=(l+h)/2;
+            int sum=0;
+            int q=1;
+            for(int i=0;i<n;i++)
+            {
+                sum+=A[i];
+                if(sum>mid)
+                {
+                    sum=A[i];
+                    q++;
+                }
+            }
+            if(q<=B)
+            {
+                h=mid-1;
+            }
+            else
+             l=mid+1;
+        }
+        return l;
+    }
+}
