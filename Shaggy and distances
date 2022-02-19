@@ -1,0 +1,24 @@
+public class Solution {
+    public int solve(int[] A) {
+        HashMap<Integer,Integer> hmap=new HashMap<>();
+        int ans=Integer.MAX_VALUE;
+        for(int i=0;i<A.length;i++)
+        {
+            Integer x=hmap.get(A[i]);
+            
+            if(x==null)
+             hmap.put(A[i],i);
+            else
+             {
+                 int temp=Math.abs(x-i);
+                 ans=Math.min(ans,temp);
+                 hmap.put(A[i],i);
+             }
+            
+        }
+        if(ans!=Integer.MAX_VALUE)
+         return ans;
+        else
+         return -1;
+    }
+}
