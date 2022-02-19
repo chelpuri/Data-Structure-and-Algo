@@ -1,0 +1,44 @@
+public class Solution {
+    public int[] solve(int[] A, int[] B) {
+        TreeMap<Integer,Integer> hmap=new TreeMap<>();
+        int ans[]=new int[A.length];
+        for(int i=0;i<A.length;i++)
+        {
+            int temp=A[i];
+            if(hmap.get(temp)!=null)
+            {
+                hmap.put(temp,hmap.get(temp)+1);
+            }
+            else
+            {
+                hmap.put(temp,1);
+            }
+        }
+        int j=0;
+        for(int i=0;i<B.length;i++)
+        {
+            if(hmap.containsKey(B[i]) && hmap.get(B[i])!=0)
+            {
+                int p=hmap.get(B[i]);
+                while(p!=0)
+                {
+                ans[j++]=B[i];
+                p--;
+                }
+                hmap.put(B[i],0);
+            }
+        }
+        for(Map.Entry<Integer,Integer> set:hmap.entrySet())
+        {
+            int val=set.getValue();
+            int key=set.getKey();
+            while(val!=0)
+            {
+                ans[j++]=key;
+                val--;
+            }
+            hmap.put(key,0);
+        }
+        return ans;
+    }
+}
