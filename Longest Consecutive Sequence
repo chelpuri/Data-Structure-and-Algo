@@ -1,0 +1,24 @@
+public class Solution {
+    // DO NOT MODIFY THE ARGUMENTS WITH "final" PREFIX. IT IS READ ONLY
+    public int longestConsecutive(final int[] A) {
+        HashMap<Integer,Integer> hmap=new HashMap<>();
+        for(int i=0;i<A.length;i++)
+        {
+            hmap.put(A[i],A[i]);
+        }
+        int maxcount=0;
+       for(int i=0;i<A.length;i++){
+            int x=hmap.get(A[i]);
+            if(!hmap.containsKey(x-1))
+            {
+                int l=1;
+                while(hmap.containsKey(++x)) l++;
+                maxcount=Math.max(l,maxcount);
+            }
+        }
+        
+        return maxcount;
+    }
+}
+
+//we can also use hashset;
