@@ -1,0 +1,29 @@
+public class Solution {
+    public int solve(int A, String B) {
+        HashMap<Character,Integer> hmap=new HashMap<>();
+        int n=B.length();
+        if(n%A==0){
+        for(int i=0;i<n;i++)
+        {
+            char temp=B.charAt(i);
+            if(hmap.get(temp)!=null)
+            {
+                hmap.put(temp,hmap.get(temp)+1);
+            }
+            else
+            {
+                hmap.put(temp,1);
+            }
+        }
+        for(Map.Entry<Character,Integer> set:hmap.entrySet())
+        {
+            int x=set.getValue();
+            if(x%A!=0)
+              return -1;
+        }
+        return 1;
+        }
+        return -1;
+
+    }
+}
