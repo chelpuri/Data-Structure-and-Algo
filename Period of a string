@@ -1,0 +1,43 @@
+public class Solution {
+    public int solve(String A) {
+        int n=A.length();
+        int Z[]=new int[n];
+        int l=0,r=0;
+        Z[0]=n;
+        for(int i=1;i<n;i++)
+        {
+            if(i>r)
+            {
+                l=i;
+                r=i;
+                while(r<n && A.charAt(r)==A.charAt(r-l)){
+                     r++;
+                }
+                Z[i]=r-l;
+                r--;
+            }
+            else
+            {
+                if(i+Z[i-l]<=r)
+                 Z[i]=Z[i-l];
+                else{
+                    l=i;
+                    while(r<n && A.charAt(r)==A.charAt(r-l))
+                    {
+                        r++;
+                    }
+                    Z[i]=r-l;
+                    r--;
+                }
+            }
+        }
+        for(int i=1;i<n;i++)
+        {
+            if(i+Z[i]==n)
+            {
+                return i;
+            }
+        }
+        return Z[0];
+    }
+}
