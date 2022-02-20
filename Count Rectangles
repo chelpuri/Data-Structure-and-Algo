@@ -1,0 +1,49 @@
+public class Solution {
+    public int solve(int[] A, int[] B) {
+        HashSet<Pair> hmap=new HashSet<Pair>();
+        for(int i=0;i<A.length;i++)
+        {
+            Pair p=new Pair(A[i],B[i]);
+            hmap.add(p);
+        }
+        int count = 0;
+        for(int i=0;i<A.length;i++)
+        {
+            for(int j=i+1;j<B.length;j++)
+            {
+                if(A[i]!=A[j] && B[i]!=B[j])
+                {
+                    Pair p1=new Pair(A[i],B[j]);
+                    Pair p2=new Pair(A[j],B[i]);
+                    if(hmap.contains(p1) && hmap.contains(p2))
+                      count++;
+                }
+            }
+        }
+        return count/2;
+    }
+    }
+    class Pair{
+    int x;
+    int y;
+    Pair(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+    @Override
+    public int hashCode(){
+        int result = x;
+        result = 31 * result + y;
+        return result;
+    }
+    @Override
+    public boolean equals(Object obj){
+        if(this == obj)
+            return true;
+        if(obj == null || obj.getClass() != this.getClass())
+            return false;
+        Pair p = (Pair)obj;
+        return (p.x == this.x && p.y == this.y);
+
+    }  
+}
