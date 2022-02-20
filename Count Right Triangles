@@ -1,0 +1,44 @@
+public class Solution {
+    public int solve(int[] A, int[] B) {
+        int mod=1000*1000*1000+7;
+        HashMap<Integer,Integer> hmap1=new HashMap<>();
+        HashMap<Integer,Integer> hmap2=new HashMap<>();
+        int n=A.length;
+        int m=B.length;
+        for(int i=0;i<A.length;i++)
+        {
+            int temp=A[i];
+            if(hmap1.get(temp)!=null)
+            {
+                hmap1.put(temp,hmap1.get(temp)+1);
+            }
+            else
+            {
+                hmap1.put(temp,1);
+            }
+        }
+        for(int i=0;i<B.length;i++)
+        {
+            int temp=B[i];
+            if(hmap2.get(temp)!=null)
+            {
+                hmap2.put(temp,hmap2.get(temp)+1);
+            }
+            else
+            {
+                hmap2.put(temp,1);
+            }
+        }
+        long ans=0;
+        for(int i=0;i<n;i++)
+        {
+            int freq1=hmap1.get(A[i]);
+            int freq2=hmap2.get(B[i]);
+            freq1--;
+            freq2--;
+            ans+=freq2*freq1;
+            ans%=mod;
+        }
+        return (int) ans%mod;
+    }
+}
