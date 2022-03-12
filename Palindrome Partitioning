@@ -1,0 +1,38 @@
+public class Solution {
+    ArrayList<ArrayList<String>> ans;
+	public ArrayList<ArrayList<String>> partition(String a) {
+	    ans=new ArrayList<>();
+	    ArrayList<String> v=new ArrayList<>();
+	    solve(a,0,v);
+	    return ans;
+	}
+	void solve(String A,int idx,ArrayList<String> v)
+	{
+	    if(idx==A.length())
+	    {
+	        ans.add(new ArrayList<>(v));
+	        return;
+	    }
+	    for(int j=idx;j<A.length();j++)
+        {
+            if(isPalindrome(A,idx,j))
+            {
+                v.add(A.substring(idx,j+1));
+                solve(A,j+1,v);
+                v.remove(v.size()-1);
+            }
+        } 
+	}
+    public boolean isPalindrome(String s,int i,int j)
+    {
+        while(i<j)
+        {
+            if(s.charAt(i)!=s.charAt(j))
+              return false;
+
+            i++;
+            j--;
+        }
+        return true;
+    }
+}
